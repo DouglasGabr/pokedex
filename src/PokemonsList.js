@@ -1,21 +1,21 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import { withRouter } from "react-router-dom";
 
-const createPokemonListItem = ({ id, name, image }, onClick) => {
-  return (
-    <ListGroupItem onClick={() => onClick(id)} key={id}>
-      <span>{name}</span>
-      <img alt={name} className="float-right" height='40px' src={image} />
-    </ListGroupItem>
-  );
-}
-
-const PokemonsList = ({ pokemons, onClick }) => {
+const PokemonsList = ({ pokemons, history }) => {
   return (
     <ListGroup>
-      {pokemons.map(p => createPokemonListItem(p, onClick))}
+      {pokemons.map(p => {
+        const { id, name, image } = p;
+        return (
+          <ListGroupItem onClick={() => history.push('/pokemons/stats/' + id)} key={id}>
+            <span>{name}</span>
+            <img alt={name} className="float-right" height='40px' src={image} />
+          </ListGroupItem>
+        );
+      })}
     </ListGroup>
   );
 };
 
-export default PokemonsList;
+export default withRouter(PokemonsList);

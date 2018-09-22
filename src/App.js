@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import AppNavbar from './AppNavbar';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import client from './PokemonApiClient';
 import PokemonsList from './PokemonsList';
 import gql from "graphql-tag";
+import PokemonStats from './PokemonStats';
 
 class App extends Component {
   constructor(props) {
@@ -26,10 +27,6 @@ class App extends Component {
       .then(result => this.setState({ pokemons: result.data.pokemons.map(p => ({ ...p, isCaptured: false })) }));
   }
 
-  pokemonSelected = (id) => {
-    console.log(id);
-  }
-
   render() {
     return (
       <Router>
@@ -37,7 +34,9 @@ class App extends Component {
           <div>
             <AppNavbar />
             <main role="main" className="container my-3">
-              <Route exact path="/pokemons" component={() => <PokemonsList pokemons={this.state.pokemons} onClick={this.pokemonSelected} />} />
+              <Route exact path="/" render={() => <Redirect to="/pokemons" />} />
+              <Route exact path="/pokemons" component={() => <PokemonsList pokemons={this.state.pokemons} />} />
+              <Route exact path="/pokemons/stats/:pokemonId" component={({ match }) => <PokemonStats id={match.params.pokemonId} />} />
               <Route exact path="/pokemons/captured" />
             </main>
           </div>

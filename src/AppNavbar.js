@@ -31,7 +31,7 @@ class AppNavbar extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink exact tag={Link} to="/pokemons/">Pokémons</NavLink>
+                <NavLink exact tag={Link} to="/pokemons">Pokémons</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink exact tag={Link} to="/pokemons/captured">Captured</NavLink>

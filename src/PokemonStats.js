@@ -1,5 +1,6 @@
 import React from "react";
 import gql from "graphql-tag";
+import ReactLoading from 'react-loading';
 import {
   Card,
   CardBody,
@@ -144,20 +145,21 @@ const Stats = ({ pokemon }) => {
   );
 }
 
-const PokemonStats = props => {
+const PokemonStats = ({ id, isCaptured = false }) => {
   return (
     <Query
       query={POKEMON_QUERY}
-      variables={{ id: props.id }}
+      variables={{ id }}
     >
       {({ loading, error, data }) => {
-        if (loading) return 'loading';
+        if (loading) {
+          return (
+            <ReactLoading className="mx-auto mt-5" width={125} type="spinningBubbles" color="green" />
+          );
+        }
         if (error) return `Error!: ${error}`;
 
         const pokemon = data.pokemon;
-
-        console.log(pokemon);
-
         let evolutions = null;
         if (pokemon.evolutions !== null) {
           evolutions = <Evolutions evolutions={pokemon.evolutions} />;
@@ -166,7 +168,10 @@ const PokemonStats = props => {
         return (
           <Card>
             <CardBody>
-              <CardTitle tag="h2">{pokemon.name} <Badge style={{ fontSize: '1rem' }} pill>{pokemon.classification}</Badge></CardTitle>
+              <CardTitle tag="h2">{pokemon.name} <Badge style={{ fontSize: '1rem' }} pill>{pokemon.classification}</Badge>
+                <br />
+                {isCaptured ? <Badge color="success" pill>Captured</Badge> : null}
+              </CardTitle>
             </CardBody>
             <img className="my-3" width="50%" src={pokemon.image} alt={pokemon.name} style={{ alignSelf: 'center' }} />
             <Stats pokemon={pokemon} />

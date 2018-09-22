@@ -8,7 +8,7 @@ const PokemonsList = ({ pokemons, history }) => {
       {pokemons.map(p => {
         const { id, name, image } = p;
         return (
-          <ListGroupItem onClick={() => history.push('/pokemons/stats/' + id)} key={id}>
+          <ListGroupItem style={{ cursor: 'pointer' }} onClick={() => history.push('/pokemons/stats/' + id)} key={id}>
             <span>{name}</span>
             <img alt={name} className="float-right" height='40px' src={image} />
           </ListGroupItem>

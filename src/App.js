@@ -33,12 +33,12 @@ class App extends Component {
             <AppNavbar />
             <main role="main" className="container my-3">
               <Switch>
-                <Route path="/pokemons/captured" component={() => <PokemonsList listCaptured={true} capturedPokemons={this.state.capturedPokemonIds} onPokemonCaptured={this.onPokemonCaptured} />} />
+                <Route path="/pokemons/captured" component={() => <PokemonsList listCaptured capturedPokemons={this.state.capturedPokemonIds} onPokemonCaptured={this.onPokemonCaptured} />} />
                 <Route path="/pokemons/:pokemonId" component={({ match }) => {
                   const isCaptured = this.state.capturedPokemonIds.indexOf(match.params.id) >= 0;
                   return <PokemonStats id={match.params.pokemonId} isCaptured={isCaptured} />
                 }} />
-                <Route path="/pokemons" component={() => <PokemonsList listCaptured={false} capturedPokemons={this.state.capturedPokemonIds} onPokemonCaptured={this.onPokemonCaptured} />} />
+                <Route path="/pokemons" component={() => <PokemonsList capturedPokemons={this.state.capturedPokemonIds} onPokemonCaptured={this.onPokemonCaptured} />} />
                 <Route path="/" render={() => <Redirect to="/pokemons" />} />
               </Switch>
             </main>

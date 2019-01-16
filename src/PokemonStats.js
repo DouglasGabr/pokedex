@@ -67,7 +67,7 @@ const Evolutions = withRouter(({ evolutions, history }) => (
     <Row>
       {evolutions.map(e => (
         <Col md="6" key={e.id}>
-          <Card style={{ cursor: 'pointer' }} onClick={() => history.push('/pokemons/stats/' + e.id)} className="h-100">
+          <Card style={{ cursor: 'pointer' }} onClick={() => history.push('/pokemons/' + e.id)} className="h-100">
             <CardBody>
               <CardTitle>{e.name}</CardTitle>
             </CardBody>
